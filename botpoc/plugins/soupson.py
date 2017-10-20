@@ -1,6 +1,6 @@
 import re
 
-from mattermost_bot.bot import listen_to, respond_to
+from mattermost_bot.bot import respond_to
 
 
 @respond_to('.*soupson.*', re.IGNORECASE)

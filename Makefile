@@ -8,7 +8,7 @@ check:  pep8
 
 .PHONY: pep8
 pep8: install-dev-tools
-	bin/pep8 --verbose src/*.py
+	bin/flake8 botpoc/*.py
 
 .PHONY: install-dev-tools
 install-dev-tools:
