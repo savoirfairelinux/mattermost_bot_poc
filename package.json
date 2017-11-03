@@ -1,0 +1,7 @@
+{
+  "name": "mattermost_bot_poc",
+  "description": "A Mattermost bot POC to explore the possibilities (yet another hello world project)",
+  "devDependencies": {
+    "dockerlint": ""
+  }
+}
