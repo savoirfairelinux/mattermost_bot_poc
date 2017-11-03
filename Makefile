@@ -6,6 +6,10 @@ init:
 .PHONY: check
 check:  pep8 dockerlint
 
+dist:	dockerlint
+	[ -d env ] || mkdir env
+	docker build --file Dockerfile ./
+
 .PHONY: pep8
 pep8: install-dev-tools
 	bin/flake8 botpoc/*.py

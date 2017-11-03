@@ -1,18 +1,35 @@
-FROM ubuntu:16.04
+FROM alpine:3.6
 
-RUN apt-get update && \
-    apt-get install -y \
-        git \
-        curl && \
-    useradd -d /bot -m -s /bin/bash -U bot
+# Update OS
+RUN apk update && \
+    apk upgrade && \
+    apk add shadow \
+    	tzdata
 
-USER bot
-WORKDIR /bot
+# Python dependencies
+RUN apk add --no-cache \
+        python3 \
+        py-virtualenv
 
-COPY package.json /bot/
+# Build environment dependencies
+RUN apk add \
+        make
 
+# Bot user and environment
+RUN useradd -d /bot -m -s /bin/bash -U bot
+
+# Sys config
 USER root
-RUN npm install  && \
-    ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
+RUN ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
 
-CMD ["sh", "start.sh"]
+# Env test
+USER bot
+COPY [ \
+	"Makefile", \
+	"requirements.txt", \
+	"/bot/" \
+     ]
+WORKDIR /bot
+RUN make
+
+#CMD ["sh", "start.sh"]
